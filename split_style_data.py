@@ -4,24 +4,25 @@ import random
 import glob
 import shutil
 import csv 
+csv.field_size_limit(sys.maxsize)
 
 '----------------------------------------------------'
 
 # generate filenames csv files by running filename.py
 # path to 'genre_filename.csv' file
-genrefilenames = 'genre_filename.csv'
+genrefilenames = '/media/dnr/data_crypt/cy_strap/genre_filename.csv'
 # path to 'style_filename.csv' file
-stylefilenames = 'style_filename.csv'
+stylefilenames = '/media/dnr/data_crypt/cy_strap/style_filename.csv'
 
 # path to 'genre-count.csv' file
-genrepath = 'genre-count.csv'
+genrepath = '/media/dnr/data_crypt/cy_strap/genre-count.csv'
 # path to 'style-count.csv' file
-stylepath = 'style-count.csv'
+stylepath = '/media/dnr/data_crypt/cy_strap/style-count.csv'
 
 # path to main directory in which to create genre/style specific folders eg. '/media/dnr/data_crypt/cy_strap/train_folders'
-dirname = ''
+dirname = '/media/dnr/data_crypt/cy_strap/train_folders'
 # path to directory where images are held eg. '/media/dnr/data_crypt/cy_strap/train'
-sourcedir = ''
+sourcedir = '/media/dnr/data_crypt/cy_strap/train'
 
 n = 1000
 
@@ -40,7 +41,7 @@ with open(genrepath, 'r') as csvFile:
     for row in csvReader:
         rowData = {key: row[idx] for idx, key in enumerate(header)}
         try:
-            tempcount = rowData['COUNT']
+            tempcount = int(rowData['COUNT'])
             tempgenre = rowData['GENRE']
             if tempcount >= n:
                 genres.append(tempgenre)
@@ -53,7 +54,7 @@ with open(stylepath, 'r') as csvFile:
     for row in csvReader:
         rowData = {key: row[idx] for idx, key in enumerate(header)}
         try:
-            tempcount = rowData['COUNT']
+            tempcount = int(rowData['COUNT'])
             tempstyle = rowData['STYLE']
             if tempcount >= n:
                 styles.append(tempstyle)
@@ -95,14 +96,20 @@ with open(stylefilenames, 'r') as csvFile:
 
 # make genre/style folders and create symbolic links in new genre/style specific folders
 for genre in genres:
-    folderpath = os.path.join(dirname, 'genre_' + genre)
+    g = genre.replace(' ', '_')
+    g = g.replace('(', '')
+    g = g.replace(')', '')
+    folderpath = os.path.join(dirname, 'genre_' + g)
     os.mkdir(folderpath)
     for img in dictgenres[genre]:
         imgpath = os.path.join(sourcedir, img)
         createpath = os.path.join(folderpath, img)
         os.symlink(imgpath, createpath)
 for style in styles:
-    folderpath = os.path.join(dirname, 'style_' + style)
+    s = style.replace(' ', '_')
+    s = s.replace('(', '')
+    s = s.replace(')', '')
+    folderpath = os.path.join(dirname, 'style_' + s)
     os.mkdir(folderpath)
     for img in dictstyles[style]:
         imgpath = os.path.join(sourcedir, img)
