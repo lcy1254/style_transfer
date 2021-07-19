@@ -4,7 +4,7 @@ import random
 import glob
 import shutil
 
-----------------------------------------------------
+'----------------------------------------------------'
 
 # generate filenames csv files by running filename.py
 # path to 'genre_filename.csv' file
@@ -24,7 +24,7 @@ sourcedir = ''
 
 n = 1000
 
-----------------------------------------------------
+'----------------------------------------------------'
 
 genres = []
 styles = []
