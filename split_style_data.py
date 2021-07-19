@@ -67,9 +67,6 @@ if '' in genres:
 if '' in styles:
     styles.remove('')
 
-print(genres)
-print(styles)
-
 # load random n filenames for each genre/style with number of files greater than n
 
 with open(genrefilenames, 'r') as csvFile:
@@ -81,8 +78,6 @@ with open(genrefilenames, 'r') as csvFile:
             tempgenre = rowData['GENRE']
             temp = rowData['FILENAMES']
             templist = temp.strip("]['").split("', '")
-            print(templist)
-            sdfjalksdjflkajdsf
             templist2 = random.sample(templist, n)
             dictgenres[tempgenre] = templist2
 
@@ -95,8 +90,6 @@ with open(stylefilenames, 'r') as csvFile:
             tempstyle = rowData['STYLE']
             temp = rowData['FILENAMES']
             templist = temp.strip("]['").split("', '")
-            print(templist)
-            sdfjalksdjflkajdsf
             templist2 = random.sample(templist, n)
             dictstyles[tempstyle] = templist2
 
