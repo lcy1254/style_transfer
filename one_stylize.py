@@ -1,5 +1,7 @@
-n = 15
+n = 37
 # need to start from 14
+
+# for some reason, cannot run stylize_saveHdf5 multiple times in one script 
 import os, glob, json 
 import time
 import numpy as np
@@ -21,6 +23,7 @@ data_dir = '/media/dnr/data_crypt/cy_strap/camelyon17_v1.0/patches/'
 main_dir = '/media/dnr/data_crypt/cy_strap/train_folders' 
 main_outdir = '/media/dnr/data_crypt/cy_strap/output/'
 folders = glob.glob(f'{main_dir}/*/')
+print(len(folders))
 '''
 for folder in folders:
     style_dir = folder
