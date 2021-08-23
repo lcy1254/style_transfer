@@ -22,6 +22,7 @@ def find_black_white(file):
             if pix==same:
                 return 100
                 
+# put all completely black and white images into /real_BW_train
 imgs = glob.glob(f'{dirname}/*')
 count = 0
 for img in imgs:
@@ -32,3 +33,17 @@ for img in imgs:
         os.symlink(img, createpath)
         count+=1
 print(count)
+
+# put only 1000 black and white images from /real_BW_train into /BW_train 
+a = '/data/cy_strap/real_BW_train'
+b = '/data/cy_strap/BW_train'
+c = '/data/cy_strap/train'
+
+real = glob.glob(f'{a}/*')
+export = real[:1000]
+print(len(export))
+for file in export:
+    temp = file.split('/')[-1]
+    orig_path = os.path.join(c, temp)
+    out_path = os.path.join(b, temp)
+    os.symlink(orig_path, out_path)
